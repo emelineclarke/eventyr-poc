@@ -1,0 +1,40 @@
+* {
+box-sizing: border-box;
+}
+
+html,
+body,
+#map {
+  height: 100%;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+.infopop h4 {
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  margin: 0 0 0px;
+  color: #777;
+}
+.photo {
+    width: 95% !important;
+}
+ 
+.keypad {
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+
+  /* Preserve aspet ratio */
+  min-width: 100%;
+  min-height: 100%;
+}    
+img[usemap] {
+    border: none;
+    height: auto;
+    max-width: 100%;
+    width: auto;
+}

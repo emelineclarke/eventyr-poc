@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" href="/static/css/leaflet.css" type="text/css">
+    <link rel="stylesheet" href="/static/css/leaflet.markercluster.css" type="text/css">
+    <link rel="stylesheet" href="/static/css/leaflet.photo.css" type="text/css">
+{% endblock %}
+
+{% block body %}
+<div id="map"></div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/leaflet.js"></script>
+<script src="/static/js/leaflet.markercluster.js"></script>
+<script src="/static/js/leaflet.photo.js"></script>
+<script>
+    // set center coordinates
+    var coords = [43.684391, -72.285591];
+    // set default zoom level
+    var zoomLevel = 9;
+    // initialize map
+    var map = L.map('map').setView(coords, zoomLevel);
+    // set source for map tiles
+    ATTR = '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
+    CDB_URL = 'https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=bb4e6c88d5a64661ad43f57f3f4da41e';
+    // add tiles to map
+    L.tileLayer(CDB_URL, {
+      attribution: ATTR
+    }).addTo(map);
+
+    var photos = [
+    {
+      "lat": 44.544309,
+      "lng": -72.814409,
+      "name": "Mount Mansfield",
+      "url": "/static/img/locs/mansfield.jpg",
+      "thumbnail": "/static/img/locs/mansfield.jpg"
+    }, 
+    {
+      "lat": 44.319568,
+      "lng": -72.886333,
+      "name": "Camel's Hump",
+      "url": "/static/img/locs/camelshump.jpg",
+      "thumbnail": "/static/img/locs/camelshump.jpg"
+    }, 
+    {
+      "lat": 43.604504,
+      "lng": -72.820122,
+      "name": "Killington",
+      "url": "/static/img/locs/killington.jpg",
+      "thumbnail": "/static/img/locs/killington.jpg"
+    }, 
+    {
+      "lat": 44.270553, 
+      "lng": -71.303101,
+      "name": "Mount Washington",
+      "url": "/static/img/locs/washington.jpeg",
+      "thumbnail": "/static/img/locs/washington.jpeg"
+    }, 
+    {
+      "lat": 44.005995,
+      "lng": -71.520373,
+      "name": "East Osceola",
+      "url": "/static/img/locs/eastosceola.jpg",
+      "thumbnail": "/static/img/locs/eastosceola.jpg"
+    }, 
+    {
+      "lat": 44.024524,
+      "lng": -71.830912,
+      "name": "Mount Moosilauke",
+      "url": "/static/img/locs/moosilauke.jpg",
+      "thumbnail": "/static/img/locs/moosilauke.jpg"
+    }, 
+    ];
+
+    var photoLayer = L.photo.cluster().on('click', function(evt) {
+      var photo = evt.layer.photo;
+      var template = '<img class="photo" src="{url}" /></a><p>{name}</p>';
+      evt.layer.bindPopup(L.Util.template(template, photo), {
+        minWidth: 400
+      }).openPopup();
+    });
+
+    photoLayer.add(photos).addTo(map);
+</script>
+{% endblock %}
